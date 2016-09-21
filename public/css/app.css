@@ -1,0 +1,20 @@
+
+.Invoices__newInvoiceBtn {
+    margin: 20px;
+}
+
+.Invoices__newInvoiceBlock {
+    min-height: 300px;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    padding: 20px 0 20px 0;
+    margin-bottom: 20px;
+}
+
+.TotalSum {
+    font-size: 3rem;
+}
+
+.InvoiceTotal {
+    text-decoration: line-through;
+}

@@ -5,7 +5,6 @@ var express = require('express'),
     Sequelize = require('sequelize'),
     _ = require('lodash');
 
-
 sequelize = new Sequelize('sqlite://' + path.join(__dirname, 'invoices.sqlite'), {
   dialect: 'sqlite',
   storage: path.join(__dirname, 'invoices.sqlite')
@@ -130,6 +129,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// WEBPACK CONFIGURATION
+
+(function initWebpack() {
+  const webpack = require('webpack');
+  const webpackConfig = require('./webpack.config.js');
+  const compiler = webpack(webpackConfig);
+
+  // app.use(require('webpack-dev-middleware')(compiler, {
+  //   noInfo: true, publicPath: webpackConfig.output.publicPath,
+  // }));
+
+  app.use(require('webpack-hot-middleware')(compiler, {
+    log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000,
+  }));
+
+})();
+
 // CUSTOMERS API
 
 app.route('/api/customers')
@@ -176,6 +193,7 @@ app.route('/api/products')
   })
   .post(function(req, res) {
         var product = Product.build(_.pick(req.body, ['name', 'price']));
+    console.log(req.body);
     product.save().then(function(product){
       res.json(product);
     });

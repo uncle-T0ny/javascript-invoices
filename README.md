@@ -9,6 +9,9 @@
 ###### Install npm dependencies
 `npm install`
 
+###### Compile front-end bundle
+'webpack'
+
 ###### Run the node server
 `node app.js`
 
